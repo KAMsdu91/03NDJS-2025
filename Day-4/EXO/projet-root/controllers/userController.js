@@ -7,8 +7,8 @@ exports.getMe = (req, res) => {
 };
 
 exports.getAllUsers = (req, res) => {
-  if (!req.user.isAdmin) {
-    return res.status(403).json({ message: 'Access denied' });
+    if (!req.user.isAdmin) {
+        return res.status(403).json({ message: 'Admin privileges required' });
   }
   res.json(users.map(({ password, ...rest }) => rest));
 };
