@@ -1,4 +1,5 @@
-require('dotenv').config(); // ✅ charger les variables d'environnement
+require('dotenv').config();
+console.log("🔐 Clé secrète JWT chargée :", process.env.JWT_SECRET);
 
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
@@ -8,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/api', authRoutes);
-app.use('/api', userRoutes);
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
