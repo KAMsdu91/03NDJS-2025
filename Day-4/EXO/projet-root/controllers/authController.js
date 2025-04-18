@@ -16,9 +16,19 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = users.find(u => u.email === email);
-  if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+    const { email, password } = req.body;
+
+    // ✅ VALIDATION ICI
+    const { isValidEmail, isValidPassword } = require('../utils/validateInput');
+    
+    if (!isValidEmail(email) || !isValidPassword(password)) {
+      return res.status(400).json({ message: 'Email ou mot de passe invalide' });
+    }
+    
+    if (users.find(u => u.email === email)) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+    
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) return res.status(401).json({ message: 'Invalid credentials' });
