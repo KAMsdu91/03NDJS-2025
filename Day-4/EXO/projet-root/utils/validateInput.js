@@ -3,8 +3,11 @@ function isValidEmail(email) {
   }
   
   function isValidPassword(password) {
-    return password.length >= 6;
+    return typeof password === 'string' && password.length >= 6;
   }
   
-  module.exports = { isValidEmail, isValidPassword };
+  module.exports = {
+    isValidEmail,
+    isValidPassword
+  };
   
